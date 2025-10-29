@@ -1,4 +1,8 @@
 import customtkinter as ctk
+import sqlite3
+
+conn =sqlite3.connect('datbase.db')
+conn.close()
 
 # إعدادات اللون
 ctk.set_appearance_mode("system")
@@ -21,7 +25,20 @@ class Main_Windo(ctk.CTk):
         ctk.CTkButton(top_frame, text="Logout").pack(anchor="e", pady=15, padx=10)
 
         # ----- الإطار الجانبي -----
-        left_frame = ctk.CTkFrame(self, width=300)
+        left_frame = ctk.CTkFrame(self, width=500)
+        ctk.CTkLabel(left_frame, text="Days", font=("", 40)).grid(padx=60)
+        left_frame.grid_rowconfigure(1, weight=1)
+
+        farm_days = ctk.CTkFrame(left_frame, width=500)
+        ctk.CTkButton(farm_days, text="Saturday").pack(fill="x", padx=5, pady=10)
+        ctk.CTkButton(farm_days, text="Sunday").pack(fill="x", padx=5, pady=10)
+        ctk.CTkButton(farm_days, text="Monday").pack(fill="x", padx=5, pady=10)
+        ctk.CTkButton(farm_days, text="Tuesday").pack(fill="x", padx=5, pady=10)
+        ctk.CTkButton(farm_days, text="Wednesday").pack(fill="x", padx=5, pady=10)
+        ctk.CTkButton(farm_days, text="Thursday").pack(fill="x", padx=5, pady=10)
+        ctk.CTkButton(farm_days, text="Friday").pack(fill="x", padx=5, pady=10)
+        farm_days.grid(row=1, sticky="nsew", padx=5, pady=10)
+        left_frame.grid_rowconfigure(1, weight=2)
         left_frame.grid(row=1, column=0, sticky="ns", rowspan=2, pady=5)
 
         # ----- الإطار الرئيسي -----
@@ -29,12 +46,13 @@ class Main_Windo(ctk.CTk):
         self.task_frame.grid(row=1, column=1, sticky="nsew", columnspan=2, padx=10, pady=10)
 
         # ----- خانة الإدخال -----
-        self.entry = ctk.CTkEntry(self, width=500)
+        self.entry = ctk.CTkEntry(self, width=500, font=("", 30))
         self.entry.grid(row=2, column=1, columnspan=2, padx=20, pady=(5, 30), sticky="nsew")
 
         # زرار لإضافة مهمة
         add_btn = ctk.CTkButton(self, text="Add Task", command=self.add_task)
-        add_btn.grid(row=2, column=2, columnspan=2, padx=20, pady=(5, 30))
+        add_btn.grid(row=2, column=2, columnspan=2, padx=30, pady=(5, 30))
+        #farm to days
 
     def add_task(self):
         text = self.entry.get().strip()
